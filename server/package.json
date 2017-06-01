@@ -1,6 +1,5 @@
 {
-  "name": "hello-world-meteor",
-  "private": true,
+  "name": "react-meteor-client-template-server",
   "scripts": {
     "start": "meteor run"
   },

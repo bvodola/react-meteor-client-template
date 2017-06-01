@@ -18,7 +18,7 @@ class App extends Component {
 
     return (
      <div>
-        <h1>React Template 2</h1>
+        <h1>React Template</h1>
         <button onClick={() => this.handleAddItem()}>Add Item</button>
         {this.props.tasks.map((v,i,a) => (
           <p key={i}>{v.content}</p>
