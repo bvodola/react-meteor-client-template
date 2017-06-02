@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Meteor from 'react-meteor-client';
 
+import { default as Theme } from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import NavBar from './NavBar.jsx';
+import { List, ListItem } from 'material-ui/List';
+
 class App extends Component {
 
   handleAddItem() {
@@ -17,13 +22,20 @@ class App extends Component {
   render() {
 
     return (
-     <div>
-        <h1>React Template</h1>
-        <button onClick={() => this.handleAddItem()}>Add Item</button>
-        {this.props.tasks.map((v,i,a) => (
-          <p key={i}>{v.content}</p>
-        ))}
-      </div>);
+      <Theme>
+        <div>
+          <NavBar />
+          <div style={{padding: '16px'}}>
+          <RaisedButton label="Add Item" primary={true} onTouchTap={() => this.handleAddItem()} />
+          <List>
+          {this.props.tasks.map((v,i,a) => (
+            <ListItem key={i} primaryText={String(v._id)} />
+          ))}
+          </List>
+          </div>
+        </div>
+      </Theme>
+    );
   }
 }
 

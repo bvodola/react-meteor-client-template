@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { AppContainer as HotLoader} from 'react-hot-loader'
 import AppContainer from './containers/AppContainer.jsx';
+
+import Meteor from 'react-meteor-client';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+Meteor.connect('ws://192.168.2.106:3000/websocket');
+injectTapEventPlugin();
 
 const render = Component => {
   ReactDOM.render(
