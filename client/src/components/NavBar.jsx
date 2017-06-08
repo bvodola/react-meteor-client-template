@@ -20,13 +20,14 @@ const Menu = (props) => (
 
 class NavBar extends Component {
 
-
   render() {
     return (
       <div>
       <AppBar
         title="React Template"
-        iconElementLeft={<IconButton iconClassName='material-icons'>menu</IconButton>}
+        iconElementLeft={
+          <IconButton onTouchTap={() => this.props.handleDrawerState(true)} iconClassName='material-icons'>menu</IconButton>
+        }
         iconElementRight={<Menu />}
       />
     </div>

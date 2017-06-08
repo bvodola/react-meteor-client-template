@@ -3,10 +3,20 @@ import Meteor from 'react-meteor-client';
 
 import { default as Theme } from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import NavBar from './NavBar.jsx';
 import { List, ListItem } from 'material-ui/List';
 
+import NavBar from './NavBar.jsx';
+import Drawer from './Drawer.jsx';
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isDrawerOpened: false
+    }
+  }
 
   handleAddItem() {
     const content = Math.floor(Math.random() * 10); // random number
@@ -19,19 +29,26 @@ class App extends Component {
     });
   }
 
+  handleDrawerState(open, reason) {
+    this.setState({isDrawerOpened: open});
+  }
+
   render() {
 
     return (
       <Theme>
         <div>
-          <NavBar />
+          <NavBar handleDrawerState={this.handleDrawerState.bind(this)} />
+          <Drawer open={this.state.isDrawerOpened} handleDrawerState={this.handleDrawerState.bind(this)} />
           <div style={{padding: '16px'}}>
-          <RaisedButton label="Add Item" primary={true} onTouchTap={() => this.handleAddItem()} />
-          <List>
-          {this.props.tasks.map((v,i,a) => (
-            <ListItem key={i} primaryText={String(v._id)} />
-          ))}
-          </List>
+            <RaisedButton label="Add Item" primary={true} onTouchTap={() => this.handleAddItem()} />
+            &nbsp;
+            <RaisedButton label="Open Drawer" primary={true} onTouchTap={() => this.handleDrawerState(true)} />
+            <List>
+            {this.props.tasks.map((v,i,a) => (
+              <ListItem key={i} primaryText={String(v._id)} />
+            ))}
+            </List>
           </div>
         </div>
       </Theme>
