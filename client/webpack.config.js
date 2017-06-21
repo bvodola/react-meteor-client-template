@@ -21,9 +21,22 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   module: {
-    loaders: [
+    rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, './node_modules/react-native-vector-icons'),
+          path.resolve(__dirname, './node_modules/react-native-tab-view')
+        ],
+        loader: 'babel-loader?+cacheDirectory'
+      },
+      {
+        test: /\.(gif|jpe?g|png|svg)$/,
+        loader: 'url-loader',
+        query: { name: '[name].[hash:16].[ext]' }
+      }
     ]
   },
   plugins: [
@@ -40,7 +53,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
+      'react-navigation': 'react-navigation/lib/react-navigation.js'
     }
   }
 }

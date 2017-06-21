@@ -5,55 +5,48 @@ import { default as Theme } from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem } from 'material-ui/List';
 
-import NavBar from './NavBar.jsx';
-import Drawer from './Drawer.jsx';
+import { Button, Text, View, ScrollView, StyleSheet } from 'react-native';
 
-class App extends Component {
+import {
+  StackNavigator,
+  TabRouter,
+  addNavigationHelpers,
+  createNavigator,
+} from 'react-navigation';
 
-  constructor(props) {
-    super(props);
+const Home = ({navigation}) => (
+  <View>
+    <Text>Home</Text>
+    <Button onPress={() => navigation.navigate('Profile')} title="Go to profile screen" />
+      <Button
+        onPress={() => navigation.goBack(null)}
+        title="Go back"
+      />
+  </View>
+);
 
-    this.state = {
-      isDrawerOpened: false
-    }
-  }
+const Profile = ({navigation}) => (
+  <View>
+    <Text>Profile</Text>
+    <Button onPress={() => navigation.navigate('Home')} title="Go to home screen" />
+      <Button
+        onPress={() => window.history.back()}
+        title="Go back!"
+      />
+  </View>
+);
 
-  handleAddItem() {
-    const content = Math.floor(Math.random() * 10); // random number
-
-    Meteor.call('Tasks.addOne', {content}, (e, res) => {
-      if(e) console.log(e);
-      else {
-        console.log(res, this.props.tasks);
-      }
-    });
-  }
-
-  handleDrawerState(open, reason) {
-    this.setState({isDrawerOpened: open});
-  }
-
-  render() {
-
-    return (
-      <Theme>
-        <div>
-          <NavBar handleDrawerState={this.handleDrawerState.bind(this)} />
-          <Drawer open={this.state.isDrawerOpened} handleDrawerState={this.handleDrawerState.bind(this)} />
-          <div style={{padding: '16px'}}>
-            <RaisedButton label="Add Item" primary={true} onTouchTap={() => this.handleAddItem()} />
-            &nbsp;
-            <RaisedButton label="Open Drawer" primary={true} onTouchTap={() => this.handleDrawerState(true)} />
-            <List>
-            {this.props.tasks.map((v,i,a) => (
-              <ListItem key={i} primaryText={String(v._id)} />
-            ))}
-            </List>
-          </div>
-        </div>
-      </Theme>
-    );
-  }
-}
+const App = StackNavigator({
+  Home: {
+    screen: Home,
+    path: ''
+  },
+  Profile: {
+    screen: Profile,
+    path: 'profile'
+  },
+}, {
+  initialRouteName: 'Home'
+});
 
 export default App;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Meteor, { createContainer } from 'react-meteor-client';
+import BrowserAppContainer from './BrowserAppContainer.jsx';
 import App from '../components/App.jsx';
 
 let AppContainer = createContainer(() => {
@@ -11,6 +12,6 @@ let AppContainer = createContainer(() => {
     tasks: Meteor.collection('tasks').find()
   };
 
-}, App);
+}, BrowserAppContainer(App));
 
 export default AppContainer;
