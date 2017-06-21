@@ -8,6 +8,8 @@ import { List, ListItem } from 'material-ui/List';
 import NavBar from './NavBar.jsx';
 import Drawer from './Drawer.jsx';
 
+import Playground from '../helpers/Playground.jsx';
+
 class App extends Component {
 
   constructor(props) {
@@ -45,10 +47,11 @@ class App extends Component {
             &nbsp;
             <RaisedButton label="Open Drawer" primary={true} onTouchTap={() => this.handleDrawerState(true)} />
             <List>
-            {this.props.tasks.map((v,i,a) => (
-              <ListItem key={i} primaryText={String(v._id)} />
-            ))}
+              {this.props.tasks.map((v,i,a) => (
+                <ListItem key={i} primaryText={String(v._id)} />
+              ))}
             </List>
+            <Playground />
           </div>
         </div>
       </Theme>
