@@ -20,10 +20,35 @@ module.exports = {
     publicPath: '/'
   },
   devtool: 'inline-source-map',
+  resolve: {
+    extensions: ['.js', '.scss', '.css', '.json']
+  },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+    rules: [
+      { test: /\.js$/, use: [{loader: 'babel-loader'}], exclude: /node_modules/ },
+      { test: /\.jsx$/, use: [{loader: 'babel-loader'}], exclude: /node_modules/ },
+      {
+        test: [/\.scss$/,/\.css$/],
+        use: [
+          // {
+          //   loader: 'file-loader',
+          //   options: {
+          //     name: 'assets/css/[name].css'
+          //   }
+          // },
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader', options: {
+              includePaths: ['./node_modules']
+            }
+          }
+        ]
+      },
     ]
   },
   plugins: [
